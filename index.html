@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: 'Open Sans', sans-serif;
-            background-image: linear-gradient(to bottom, #f7f7f7, #fff);
+            background-image:-gradient(to bottom, #f7f7f7, #fff);
             background-repeat: no-repeat;
             height: 100vh;
             margin: 0;
@@ -30,7 +30,7 @@
         }
         
         .channeling-container {
-            background-image: url('https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2F1.bp.blogspot.com%2F-zeweT9-pNpU%2FUdA9ZJl-OLI%2FAAAAAAAAADM%2Fd3Ai8O9Tt_w%2Fs1572%2FGalaxies_wallpapers_327.jpg&f=1&nofb=1&ipt=1101a641dd0de88357e09f4f0922b9d3019a4476f594059b712ec68627f70682&ipo=images');
+            background-image: url('https://picsum.photos/200/300');
             background-size: cover;
             background-position: center;
             padding: 20px;
@@ -80,48 +80,42 @@
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Universal Energy Channeling</h1>
-            <p>Connect with the divine and tap into the infinite energy of the universe.</p>
-        </header>
-        <main>
-            <section class="channeling-container">
-                <h2>Channel the Energy of the Universe</h2>
-                <p>Click the button below to harness the universal life force energy (Reiki) and let its power flow through you for 10 minutes.</p>
-                <button class="channel-button" id="channel-energy">Channel Universal Energy</button>
-                <p id="timer">Energy channeling will begin shortly...</p>
-                <div class="visualization">
-                    <div class="energy-bar" id="energy-bar"></div>
-                </div>
-            </section>
-            <section class="benefits">
-                <h2>Benefits of Universal Energy Channeling</h2>
-                <ul>
-                    <li>Reduces stress and anxiety</li>
-                    <li>Boosts mood and energy levels</li>
-                    <li>Enhances spiritual connection and intuition</li>
-                    <li>Supports physical, emotional, and mental well-being</li>
-                </ul>
-            </section>
-        </main>
+        <h1>Universal Energy Channeling</h1>
+        <p>Connect with the divine and tap into the infinite energy of the universe.</p>
+        <section class="channeling-container">
+            <h2>Channel the Energy of the Universe</h2>
+            <p>Click the button below to harness the universal life force energy (Reiki) and let its power flow through you for 10 minutes.</p>
+            <button class="channel-button" id="channel-energy">Channel Universal Energy</button>
+            <p id="timer">Energy channeling will begin shortly...</p>
+            <div class="visualization">
+                <div class="energy-bar" id="energy-bar"></div>
+            </div>
+        </section>
+        <section class="benefits">
+            <h2>Benefits of Universal Energy Channeling</h2>
+            <ul>
+                <li>Reduces stress and anxiety</li>
+                <li>Boosts mood and energy levels</li>
+                <li>Enhances spiritual connection and intuition</li>
+                <li>Supports physical, emotional, and mental well-being</li>
+            </ul>
+        </section>
     </div>
     <script>
-        let timerInterval;
         let energyBar = document.getElementById('energy-bar');
         let timerElement = document.getElementById('timer');
+        let timeLeft = 10;
         
         document.getElementById('channel-energy').addEventListener('click', () => {
             timerElement.innerHTML = 'Energy channeling in progress...';
             energyBar.style.width = '0%';
-            timerInterval = setInterval(() => {
-                let timeLeft = 10;
+            setInterval(() => {
                 timerElement.innerHTML = `Energy channeling will reset in ${timeLeft} minutes...`;
                 let energyPercentage = (10 - timeLeft) * 10;
                 energyBar.style.width = `${energyPercentage}%`;
                 energyBar.innerHTML = `${energyPercentage}%`;
                 timeLeft--;
                 if (timeLeft <= 0) {
-                    clearInterval(timerInterval);
                     timerElement.innerHTML = 'Energy channeling has reset. Click the button to restart.';
                     energyBar.style.width = '0%';
                     energyBar.innerHTML = '0%';
