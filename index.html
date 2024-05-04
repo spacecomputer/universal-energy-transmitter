@@ -31,7 +31,7 @@
         .channeling-container {
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10pxrgba(0, 0, 0, 0.1);
         }
         
         .channel-button {
@@ -91,7 +91,7 @@
         }
         
         .energy-bar.filling {
-            width: 100%;
+           width: 100%;
         }
         
         .energy-bar.filling::before {
@@ -100,7 +100,7 @@
         
         @keyframes glow {
             0% {
-                box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+                box-shadow: 0 0 10px rgba(255, 255,255, 0.5);
             }
             50% {
                 box-shadow: 0 0 20px rgba(255, 255, 255, 1);
@@ -135,8 +135,8 @@
                 <li class="li">Balance and harmonize your body's energy</li>
                 <li class="li">Reduce stress and anxiety</li>
                 <li class="li">Enhance mental clarity and focus</li>
-                <li class="li">Promote deep relaxation and calmness</li>
-                <li class="li">Support physical and emotional healing</li>
+      <li class="li">Promote deep relaxation and calmness</li>
+                < class="li">Support physical and emotional healing</li>
             </ul>
             <h2 class="h2">How I Work</h2>
             <p class="p">Simply sit comfortably, relax, and follow my guided instructions. I will transmit the universal life force energy to you, promoting relaxation, reducing stress, and enhancing your overall well-being.</p>
@@ -154,122 +154,283 @@
     </div>
     <canvas id="canvas" width="800" height="600"></canvas>
     <script>
-        let energyBar = document.getElementById('energy-bar');
-        let timerElement = document.getElementById('timer');
-        let timeLeft = 10;
-        let channelButton = document.getElementById('channel-energy');
+        // Animated Background
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let x = 0;
+        let y = 0;
+        let dx = 2;
+        let dy = 2;
+        let radius = 10;
+        let color = '#FF69B4';
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, 2 * Math.PI);
+            ctx.fillStyle = color;
+            ctx.fill();
+            x += dx;
+            y += dy;
+            if (x + radius > canvas.width || x - radius < 0) {
+                dx = -dx;
+            }
+            if (y + radius > canvas.height || y - radius < 0) {
+                dy = -dy;
+            }
+            requestAnimationFrame(draw);
+        }
+
+        draw        // Interactive Energy Bar
+        const energyBar = document.getElementById('energy-bar');
+        let energyPercentage = 0;
+        let timerInterval;
+
+        document.getElementById('channel-energy').addEventListener('click', () => {
+            energyBar.style.width = '0%';
+            energyPercentage = 0;
+            timerInterval = setInterval(() => {
+                energyPercentage += 1;
+                energyBar.style.width = `${energyPercentage}%`;
+                if (energyPercentage >= 100) {
+                    clearInterval(timerInterval);
+                }
+            }, 100);
+        });
+
+ energyBar.addEventListener('mousedown', (e) => {
+            const rect = energyBar.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const energyWidth = rect.width;
+            energyPercentage = (x / energyWidth) * 100;
+            energyBar.style.width = `${energyPercentage}%`;
+        });
+
+        // Psychedelic Button Effects
+        const channelButton = document.getElementById('channel-energy');
 
         channelButton.addEventListener('click', () => {
-            timerElement.innerHTML = 'Energy channeling in progress…';
-            energyBar.style.width = '100%'; // Start with 100% energy
-            let energyDecrease = 100 / (10 * 60); // Decrease the energy by 0.0167% every second
-            let interval = setInterval(() => {
-                let energyPercentage = parseFloat(energyBar.style.width) - energyDecrease; // Decrease the energy
-                if (energyPercentage <= 0) { // If energy is depleted, stop the interval and reset the energy bar and timer
-                    clearInterval(interval);
-                    energyPercentage = 0;
-                    timerElement.innerHTML = 'Energy channeling has reset. Click the button to restart.';
-                } else { // If energy is not depleted, update the timer
-                    timerElement.innerHTML = `Energy channeling will reset in ${(energyPercentage / energyDecrease).toFixed(0)} seconds…`;
+            const buttonRect = channelButton.getBoundingClientRect();
+            const buttonCenterX = buttonRect.left + buttonRect.width / 2;
+            const buttonCenterY = buttonRect.top + buttonRect.height / 2;
+            const particles = [];
+
+            for (let i = 0; i < 100; i++) {
+                const particle = {
+                    x: buttonCenterX,
+ y: buttonCenterY,
+                    vx: Math.random() * 2 - 1,
+                    vy: Math.random() * 2 - 1,
+                    radius: Math.random() * 2 + 1,
+                    color: `hsla(${Math.random() * 360}, 100%, 50%, 1)`
+                };
+                particles.push(particle);
+            }
+
+            function update() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particles.length; i++) {
+                    const particle = particles[i];
+                    particle.x += particle.vx;
+                   .y += particle.vy;
+                    ctx.beginPath();
+                    ctx.arc(particle.x, particle.y, particle.radius, 0, 2 * Math.PI);
+                    ctx.fillStyle = particle.color;
+                    ctx.fill();
+                    if (particle.x + particle.radius > canvas.width || particle.x - particle.radius < 0) {
+                        particle.vx = -particle.vx;
+                    }
+                    if (particle.y + particle.radius > canvas.height || particle.y - particle.radius < 0) {
+                        particle.vy = -particle.vy;
+                    }
                 }
-                energyBar.style.width = `${energyPercentage}%`;
-                energyBar.innerHTML = `${energyPercentage.toFixed(2)}%`;
-            }, 1000); // 1 second interval
+                requestAnimationFrame(update);
+            }
+
+            update();
         });
 
-        // Create a Three.js scene and renderer
-        const scene = new THREE.Scene();
-        const renderer = new THREE.WebGLRenderer({
-            canvas: document.getElementById('canvas'),
-            antialias: true
-        });
+        // Real-time Timer
+        const timerElement = document.getElementById('timer');
 
-        // Set up the camera
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-
-        // Create a sphere to represent the galaxy
-        const sphere = new THREE.Mesh(new THREE.SphereGeometry(10, 60, 60), new THREE.MeshBasicMaterial({
-            color: 0xffffff,
-            transparent: true,
-            opacity: 0.5
-        }));
-        scene.add(sphere);
-
-        // Create a point light to represent a star
-        const pointLight = new THREE.PointLight(0xffffff, 1, 100);
-        pointLight.position.set(0, 0, 20);
-        scene.add(pointLight);
-
-        // Create a animation loop
-        function animate() {
-            requestAnimationFrame(animate);
-
-            // Rotate the sphere to create a galaxy-like effect
-            sphere.rotation.y += 0.01;
-
-            // Update the point light position to create a pulsing effect
-            pointLight.position.x += Math.sin(Date.now() * 0.001);
-
-            renderer.render(scene, camera);
+        function start() {
+            let timeLeft = 10 * 60;
+            timerInterval = setInterval(() => {
+                timeLeft -= 1;
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timerElement.innerHTML `Energy channeling will reset in ${minutes}:${seconds.toString().padStart(2, '0')}…`;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    timerElement.innerHTML = 'Energy channeling has reset. Click the button to restart.';
+                }
+            }, 1000);
         }
 
-        animate();
+        document.getElementById('channel-energy').addEventListener('click', startTimer);
 
-        // Add event listeners to respond to user interaction
-        document.addEventListener('mousemove', (event) => {
-            // Change the sphere's color based on mouse movement
-            sphere.material.color.setHSL(event.clientX / window.innerWidth, 1, 0.5);
-        });
+        // Responsive Visualizations
+        const visualizationCanvas = document.getElementById('visualizationanvas');
+        const visualizationCtx = visualizationCanvas.getContext('2d');
 
-        document.addEventListener('touchmove', (event) => {
-            // Change the sphere's color based on touch movement
-            sphere.material.color.setHSL(event.touches[0].clientX / window.innerWidth, 1, 0.5);
-        });
-
-        // Add interactive Reiki symbols
-        var canvas = document.getElementById('canvas');
-        paper.setup(canvas);
-
-        var = [
-          {
-            name: 'Cho Ku Rei',
-            path: 'M 100 100 L 150 100 L 150 150 L 100 150 Z',
-            fill: '#FF69B4',
-            hoverFill: '#FFC0CB'
-          },
-          {
-            name: 'Sei He Ki',
-            path: 'M 200 100 L 250 100 L 250 150 L 200 150 Z',
-            fill: '#33CC33',
-            hoverFill: '#66CC00'
-          },
-          {
-            name: 'Hon Sha Ze Sho Nen',
-            path: 'M 300 100 L 350 100 L 350 150 L 300 150 Z',
-            fill: '#6666CC',
-            hoverFill: '#9999CC'
-          }
-        ];
-
-        var paths = [];
-        for (var i = 0; i < symbols.length; i++) {
-          var symbol = symbols[i];
-          var path = new paper.Path(symbol.path);
-          path.fillColor = symbol.fill;
-          path.on('mouseover', function() {
-            this.fillColor = symbol.hoverFill;
-          });
-          path.on('mouseout', function() {
-            this.fillColor = symbol.fill;
-          });
-          paths.push(path);
+        function drawVisualization() {
+            visualizationCtx.clearRect(0, 0, visualizationCanvas.width, visualizationCanvas.height);
+            const x = Math.random() * visualizationCanvas.width;
+            const y = Math.random() * visualizationCanvas.height;
+            const radius = Math.random() * 10 + 5;
+            const color = `hsla(${Math.random() * 360}, 100%, 50%, 1)`;
+            visualizationCtx.beginPath();
+            visualizationCtx.arc(x, y, radius, 0, 2 * Math.PI);
+            visualizationCtx.fillStyle = color;
+            visualizationCtx.fill();
         }
 
-        for (var i = 0; i < paths.length; i++) {
-          paths[i].on('click', function() {
-            alert('You clicked on ' + this.name);
-          }.bind(symbols[i]));
+        visualizationCanvas.addEventListener('mousemove', drawVisualization);
+
+        // Sound Effects and Music
+        const audioContext = new AudioContext();
+        const soundSource = audioContext.createOscillator();
+        soundSource.type = 'square';
+        soundSource.frequency.setValueAtTime(440, audioContext.currentTime);
+        soundSource.connect(audioContext.destination);
+
+        document.getElementById('channel-energy').addEventListener('click', () => {
+            soundSource.start();
+        });
+
+        // Particle Effects
+        const particleCanvas = document.getElementById('particle-canvas');
+        const particleCtx = particleCanvas.getContext('2d');
+
+        function drawParticles() {
+            particleCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+            const particles = [];
+
+            for (let i = 0; i < 100; i++) {
+                const particle = {
+                    x: Math.random() * particleCanvas.width,
+                    y: Math.random() * particleCanvas.height,
+                    vx: Math.random() * 2 - 1,
+ vy: Math.random() * 2 - 1,
+                    radius: Math.random() * 2 + 1,
+                    color: `hsla(${Math.random() * 360}, 100%, 50%, 1)`
+                };
+                particles.push(particle);
+            }
+
+            function update() {
+                particleCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+                for (let i = 0; i < particles.length; i++) {
+                    const particle = particles[i];
+        particle.x += particle.vx;
+                    particle.y += particle.vy;
+                    particleCtx.beginPath();
+                    particleCtx.arc(particle.x, particle.y, particle.radius, 0, 2 * Math.PI);
+                    particleCtx.fillStyle = particle.color;
+                    particleCtx.fill();
+                    if (particle.x + particle.radius > particleCanvas.width || particle.x - particle.radius < 0) {
+                        particle.vx = -particle.vx;
+                    }
+                    if (particle.y + particle.radius > particleCanvas.height || particle.y - particle.radius < 0) {
+                        particle.vy = -particle.vy;
+                    }
+                }
+                requestAnimationFrame(update);
+            }
+
+            update();
         }
+
+        particleCanvas.addEventListener('mousemove', drawParticles);
+
+        // Interactive Reiki Symbols
+        const reikiCanvas = document.getElementById('reiki-canvas');
+        const reikiCtx = reikiCanvas.getContext('2d');
+
+        function drawReikiSymbols() {
+            reikiCtx.clearRect(0, 0, reikiCanvas.width, reikiCanvas.height);
+            const symbols = [
+                {
+                    name: 'Cho Ku Rei',
+                    path: 'M 100 100 L 150 100 L 150 150 L 100 150 Z',
+                    fill: '#FF69B4',
+                    hoverFill: '#FFC0CB'
+                },
+                {
+                    name: 'Sei He Ki',
+                    path: 'M 200 100 L 250 100 L 250 150 L 200 150 Z',
+                    fill: '#33CC33',
+                    hoverFill: '#66CC00'
+                },
+                {
+                    name: 'Hon Sha Ze Sho Nen',
+                    path: 'M 300 100 L 350 100 L 350 150 L 300 150 Z',
+                    fill: '#6666CC',
+                    hoverFill: '#9999CC'
+                }
+            ];
+
+            for (let i = 0; i < symbols.length; i++) {
+                const symbol = symbols[i];
+                reikiCtx.beginPath();
+                reikiCtx.fillStyle = symbol.fill;
+                reikiCtx.fill(symbol.path);
+                reikiCtx.closePath();
+            }
+        }
+
+        reikiCanvas.addEventListener('mousemove', drawReikiSymbols);
+
+        // Cosmic Animations
+        const cosmicCanvas = document.getElementById('cosmic-canvas');
+        const cosmicCtx = cosmicCanvas.getContext('2d');
+
+        function drawCosmicAnimations() {
+            cosmicCtx.clearRect(0, 0, cosmicCanvas.width, cosmicCanvas.height);
+            const galaxy = {
+                x: cosmicCanvas.width / 2,
+                y: cosmicCanvas.height / 2,
+                radius: 50,
+                color: 'hsla(240, 100%, 50%, 1)'
+            };
+            cosmicCtx.beginPath();
+            cosmicCtx.arc(galaxy.x, galaxy.y, galaxy.radius, 0, 2 * Math.PI);
+            cosmicCtx.fillStyle = galaxy.color;
+            cosmicCtx.fill();
+        }
+
+        cosmicCanvas.addEventListener('mousemove', drawCosmicAnimations);
+
+        // User-Generated Art
+        const artCanvas = document.getElementById('art-canvas');
+        const artCtx = artCanvas.getContext('2d');
+
+        let drawing = false;
+        let lastX, lastY;
+
+        artCanvas.addEventListener('mousedown', (e) => {
+            drawing = true;
+            lastX = e.clientX;
+            lastY = e.clientY;
+        });
+
+        artCanvas.addEventListener('mousemove', (e) => {
+            if (drawing) {
+                artCtx.beginPath();
+                artCtx.moveTo(lastX, lastY);
+                artCtx.lineTo(e.clientX, e.clientY);
+                artCtx.strokeStyle = `hsla(${Math.random() * 360}, 100%, 50%, 1)`;
+                artCtx.lineWidth = 2;
+                artCtx.stroke();
+                lastX = e.clientX;
+                lastY = e.clientY;
+            }
+        });
+
+        artCanvas.addEventListener('mouseup', () => {
+            drawing = false;
+        });
     </script>
 </body>
 </html>
