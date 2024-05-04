@@ -30,25 +30,55 @@
             z-index: 0;
         }
         
-        h1, h2, h3 {
-            font-family: 'Lato', sans-serif;
-            color: #fff;
-            margin-bottom: 10px;
+        hh1, h2, h3 {
+  font-family: 'Lato', sans-serif;
+  color: #fff;
+  margin-bottom: 10px;
+  animation: vaporwaveGradient 30s infinite;
+}
+
+@keyframes vaporwaveGradient {
+  0% {
+    color: #33ccff; /* Pastel blue */
+  }
+  25% {
+    color: #ff69b4; /* Pastel pink */
+  }
+  50% {
+    color: #66d9ef; /* Soft turquoise */
+  }
+  75% {
+    color: #ffe6cc; /* Warm beige */
+  }
+  100% {
+    color: #33ccff; /* Pastel blue */
+  }
+}
+
         }
         
         .channel-button {
-            background-color: #333;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        
-        .channel-button:hover {
-            background-color: #444;
-        }
+  background-image: linear-gradient(to bottom, #ff69b4, #33ccff);
+  background-size: 100% 300px;
+  background-position: 0% 100%;
+  transition: background-position 0.5s;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.channel-button:hover {
+  background-position: 100% 100%;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 1);
+}
+
+.channel-button:active {
+  background-image: linear-gradient(to bottom, #33ccff, #ff69b4);
+}
         
         #timer {
             font-size: 18px;
