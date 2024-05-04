@@ -112,6 +112,7 @@
     </style>
 </head>
 <body>
+<canvas id="particle-canvas"></canvas>
     <div class="container">
         <h1>Universal Energy Channeling</h1>
         <p>Connect with the divine and tap into the infinite energy of the universe.</p>
@@ -175,7 +176,77 @@
         energyBar.innerHTML = `${energyPercentage.toFixed(2)}%`;
     }, 1000); // 1 second interval
 });
-
+// Particle animation
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = 300;
+        canvas.height = 200;
+        
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.vx = Math.random() * 2 - 1;
+                this.vy = Math.random() * 2 - 1;
+                this.radius = Math.random() * 2 + 1;
+                this.color = `hsla(${Math.random() * 360}, 100%, 50%, 0.5)`;
+            }
+            
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                // Bounce off walls
+                if (this.x + this.radius > canvas.width || this.x - this.radius < 0) {
+                    this.vx *= -1;
+                }
+                if (this.y + this.radius > canvas.height || this.y - this.radius < 0) {
+                    this.vy *= -1;
+                }
+            }
+            
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+        }
+        
+        const particles = [];
+        
+        canvas.addEventListener('mousemove', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+            for (let i = 0; i < 10; i++) {
+                particles.push(new Particle(x, y));
+            }
+        });
+        
+        canvas.addEventListener('click', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+            for (let i = 0; i < 50; i++) {
+                particles.push(new Particle(x, y));
+            }
+        });
+        
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)'; // Set background color
+            ctx.fillRect(0, 0, canvas.width, canvas.height); // Fill the canvas with the background color
+            
+            // Update and draw particles
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
+            
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
     </script>
 </body>
 </html>
