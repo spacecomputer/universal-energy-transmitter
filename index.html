@@ -133,7 +133,8 @@
             <button class="channel-button" id="channel-energy">Channel Universal Energy</button>
             <p id="timer">Energy channeling will begin shortly…</p>
             <div class="visualization">
-                <div class="energy-bar" id="energy-bar"> <canvas id="particle-canvas" width="800" height="600"></canvas></div>
+                <canvas id="particle-canvas" width="800" height="600"></canvas>
+                <div class="energy-bar" id="energy-bar"></div>
             </div>
         </section>
         <section class="benefits">
@@ -147,7 +148,7 @@
                 <li>Balance and harmonize your body's energy</li>
                 <li>Reduce stress and anxiety</li>
                 <li>Enhance mental clarity and focus</li>
-                <li>Promote deep relaxation and calmness</li>
+                <li>Promote deep relaxationand calmness</li>
                 <li>Support physical and emotional healing</li>
             </ul>
             <h2>How I Work</h2>
@@ -163,7 +164,6 @@
             </ul>
             <h2>Experience the Power of Reiki</h2>
         </section>
-        
     </div>
     <script>
         let energyBar = document.getElementById('energy-bar');
@@ -176,7 +176,7 @@
             let energyDecrease = 100 / (10 * 60); // Decrease the energy by 0.0167% every second
             let interval = setInterval(() => {
                 let energyPercentage = parseFloat(energyBar.style.width) - energyDecrease; // Decrease the energy
-                if (energyPercentage <= 0) { // If energy is depleted, stop the interval and reset the energy bar and timer
+                if (energyPercentage <=0) { // If energy is depleted, stop the interval and reset the energy bar and timer
                     clearInterval(interval);
                     energyPercentage = 0;
                     timerElement.innerHTML = 'Energy channeling has reset. Click the button to restart.';
@@ -242,7 +242,7 @@
             for (let i = 0; i < 50; i++) {
                 particles.push(new Particle(x, y));
             }
-        });
+ });
         
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
