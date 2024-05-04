@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal Energy Channeling</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        h1, h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .energy-channeling {
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1            margin-bottom: 20px;
+        }
+        
+        button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+           : 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #444;
+        }
+        
+        #timer {
+            font-size: 18px;
+            font-weight: bold;
+            color: #666;
+        }
+        
+        .benefits {
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        li:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Connect with the Universe</h1>
+        <p>Tap into the infinite energy of the cosmos and experience balance, harmony, and inner peace.</p>
+    </header>
+    <main>
+        <section class="energy-channeling">
+            <h2>Channel the Energy of the Universe</h2>
+            <p>Click the button below to harness the universal life force energy (Reiki) and let its power flow through you for 10 minutes.</p>
+            <button id="channel-energy">Channel Universal Energy</button>
+            <p id="timer">Energy channeling will begin shortly...</p>
+        </section>
+        <section class="benefits">
+            <h2>Benefits of Universal Energy Channeling</h2>
+            <ul>
+                <li>Reduces stress and anxiety</li>
+                <li>Boosts mood and energy levels</li>
+                <li>Enhances spiritual connection and intuition</li>
+                <li>Supports physical, emotional, and mental well-being</li>
+            </ul>
+        </section>
+    </main>
+    <script>
+        let timerInterval;
+        
+        document.getElementById('channel-energy').addEventListener('click', () => {
+            document.getElementById('timer').innerHTML = 'Energy channeling in progress...';
+            timerInterval = setInterval(() => {
+                let timeLeft = 10;
+                document.getElementById('timer').innerHTML = `Energy channeling will reset in ${timeLeft} minutes...`;
+                timeLeft--;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    document.getElementById('timer').innerHTML = 'Energy channeling has reset. Click the button to restart.';
+                }
+            }, 60000); // 1 minute interval
+        });
+    </script>
+</body>
+</html>
