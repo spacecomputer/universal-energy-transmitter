@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Channeling the Universal Life Force Energy</title>
+    <title>Channeling Universal Life Force Energy</title>
     <style>
         body {
             font-family: 'Open Sans', sans-serif;
@@ -119,7 +119,7 @@
             <h2>Channel the Energy of the Universe</h2>
             <p>Click the button below to harness the universal life force energy and let its power flow through you for 10 minutes.</p>
             <button class="channel-button" id="channel-energy">Channel Universal Energy</button>
-            <p id="timer">Energy channeling will begin shortly...</p>
+            <p id="timer">Energy channeling will begin shortly…</p>
             <div class="visualization">
                 <div class="energy-bar" id="energy-bar"></div>
             </div>
@@ -157,8 +157,9 @@
         let energyBar = document.getElementById('energy-bar');
         let timerElement = document.getElementById('timer');
         let timeLeft = 10;
-        
-        document.getElementById('channel-energy').addEventListener('click', () => {
+        let channelButton = document.getElementById('channel-energy');
+
+        channelButton.addEventListener('click', () => {
             timerElement.innerHTML = 'Energy channeling in progress…';
             energyBar.style.width = '100%'; // Start with 100% energy
             let energyDecrease = 100 / (10 * 60); // Decrease the energy by 0.0167% every second
@@ -224,12 +225,12 @@
             // Change the sphere's color based on touch movement
             sphere.material.color.setHSL(event.touches[0].clientX / window.innerWidth, 1, 0.5);
         });
-        
+
         // Add interactive Reiki symbols
         var canvas = document.getElementById('canvas');
         paper.setup(canvas);
-        
-        var symbols = [
+
+        var = [
           {
             name: 'Cho Ku Rei',
             path: 'M 100 100 L 150 100 L 150 150 L 100 150 Z',
@@ -249,7 +250,7 @@
             hoverFill: '#9999CC'
           }
         ];
-        
+
         var paths = [];
         for (var i = 0; i < symbols.length; i++) {
           var symbol = symbols[i];
@@ -263,7 +264,7 @@
           });
           paths.push(path);
         }
-        
+
         for (var i = 0; i < paths.length; i++) {
           paths[i].on('click', function() {
             alert('You clicked on ' + this.name);
