@@ -61,52 +61,51 @@
     }
 
     .energy-bar {
-    width: 0%;
-    height: 40px;
-    background-color: #333;
-    border-radius: 20px;
-    padding: 10px;
-    text-align: center;
-    color: #fff;
-    overflow: hidden;
-    position: relative;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-}
-
-.energy-bar::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0%;
-    height: 100%;
-    background-image: linear-gradient(to right, #FF69B4, #33CC33);
-    background-size: 100% 100%; /* Changed back to 100% 100% */
-    transition: width 0.5s;
-    border-radius: 20px 0 0 20px;
-    animation: glow 2s infinite;
-}
-
-.energy-bar.filling {
-    width: 100%;
-}
-
-.energy-bar.filling::before {
-   : 100%;
-}
-
-@keyframes glow {
-    0% {
+        width: 0%;
+        height: 40px;
+        background-color: #333;
+        border-radius: 20px;
+        padding: 10px;
+        text-align: center;
+        color: #fff;
+        overflow: hidden;
+        position: relative;
         box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
     }
-    50% {
-        box-shadow: 0 0 20px rgba(255, 255, 255, 1);
-    }
-    100% {
-        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    }
-}
 
+    .energy-bar::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 100%;
+        background-image: linear-gradient(to right, #FF69B4, #33CC33);
+        background-size: 300px 300px; /* Changed from 100% 100% to 300px 300px */
+        transition: width 0.5s;
+        border-radius: 20px 0 0 20px;
+        animation: glow 2s infinite;
+    }
+
+    .energy-bar.filling {
+        width: 100%;
+    }
+
+    .energy-bar.filling::before {
+        width: 100%;
+    }
+
+    @keyframes glow {
+        0% {
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        50% {
+            box-shadow: 0 0 20px rgba(255, 255, 255, 1);
+        }
+        100% {
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+    }
 
     #particle-canvas {
         position: fixed;
@@ -122,7 +121,7 @@
 <body>
 	<div class="container">    
         <h1>Universal Energy Channeling</h1>
-        <p>Looking for healing? Look no further. The light beings have traversed the wormholes to bring you Reiki over the internet. </p>
+        <p>Connect with the divine and tap into the infinite energy of the universe.</p>
         <section class="channeling-container">
     <h2>Channel the Energy of the Universe</h2>
     <p>Click the button below to harness the universal life force energy and let its power flow through you for 10 minutes.</p>
@@ -163,34 +162,27 @@
         </section>
     </div>
     <script>
-        <script>
-    let energyBar = document.getElementById('energy-bar');
-    let timerElement = document.getElementById('timer');
-    let timeLeft = 10;
-    
-    document.getElementById('channel-energy').addEventListener('click', () => {
-        timerElement.innerHTML = 'Energy channeling in progress…';
-        energyBar.classList.add('filling'); // Add the filling class to start the animation
-        let energyDecrease = 100 / (10 * ); // Decrease the energy by 0.0167% every second
-        let interval = setInterval(() => {
-            let energyPercentage = 100 - (timeLeft * 10); // Decrease the energy
-            if (energyPercentage <= 0) { // If energy is depleted, stop the interval and reset the energy bar and timer
-                clearInterval(interval);
-                energyPercentage = 0;
-                timerElement.innerHTML = 'Energy channeling has reset. Click the button to restart.';
-                energyBar.classList.remove('filling'); // Remove the filling class to reset the animation
-            } else { // If energy is not depleted, update the timer
-                timerElement.innerHTML = `Energy channeling will reset in ${timeLeft} seconds…`;
-            }
-            energyBar.style.width = `${energyPercentage}%`;
-            energyBar.innerHTML = `${energyPercentage.toFixed(2)}%`;
-            timeLeft -= 1; // Decrease the time left
-            if (timeLeft <= 0) {
-                timeLeft = 10; // Reset the time left
-            }
-        }, 1000); // 1 second interval
-    });
-
+        let energyBar = document.getElementById('energy-bar');
+        let timerElement = document.getElementById('timer');
+        let timeLeft = 10;
+        
+        document.getElementById('channel-energy').addEventListener('click', () => {
+    timerElement.innerHTML = 'Energy channeling in progress...';
+    energyBar.style.width = '100%'; // Start with 100% energy
+    let energyDecrease = 100 / (10 * 60); // Decrease the energy by 0.0167% every second
+    let interval = setInterval(() => {
+        let energyPercentage = parseFloat(energyBar.style.width) - energyDecrease; // Decrease the energy
+        if (energyPercentage <= 0) { // If energy is depleted, stop the interval and reset the energy bar and timer
+            clearInterval(interval);
+            energyPercentage = 0;
+            timerElement.innerHTML = 'Energy channeling has reset. Click the button to restart.';
+        } else { // If energy is not depleted, update the timer
+            timerElement.innerHTML = `Energy channeling will reset in ${(energyPercentage / energyDecrease).toFixed(0)} seconds...`;
+        }
+        energyBar.style.width = `${energyPercentage}%`;
+        energyBar.innerHTML = `${energyPercentage.toFixed(2)}%`;
+    }, 1000); // 1 second interval
+});
 // Particle animation
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
