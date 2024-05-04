@@ -166,29 +166,26 @@
             </ul>
         </section>
     </div>
-    <script>
-        let energyBar = document.getElementById('energy-bar');
-        let timerElement = document.getElementById('timer');
-        let timeLeft = 10;
-        
-        document.getElementById('channel-energy').addEventListener('click', () => {
-    timerElement.innerHTML = 'Energy channeling in progress...';
-    energyBar.style.width = '100%'; // Start with 100% energy
-    let energyDecrease = 100 / (10 * 60); // Decrease the energy by 0.0167% every second
-    let interval = setInterval(() => {
-        let energyPercentage = parseFloat(energyBar.style.width) - energyDecrease; // Decrease the energy
-        if (energyPercentage <= 0) { // If energy is depleted, stop the interval and reset the energy bar and timer
-            clearInterval(interval);
-            energyPercentage = 0;
-            timerElement.innerHTML = 'Energy channeling has reset. Click the button to restart.';
-        } else { // If energy is not depleted, update the timer
-            timerElement.innerHTML = `Energy channeling will reset in ${(energyPercentage / energyDecrease).toFixed(0)} seconds...`;
-        }
-        energyBar.style.width = `${energyPercentage}%`;
-        energyBar.innerHTML = `${energyPercentage.toFixed(2)}%`;
-    }, 1000); // 1 second interval
-});
+  <script>
+    let energyBar = document.getElementById('energy-bar');
+    let timerElement = document.getElementById('timer');
 
-    </script>
+    document.getElementById('channel-energy').addEventListener('click', function() {
+        energyBar.classList.add('filling');
+        timerElement.innerHTML = 'Energy channeling in progress...';
+        let interval = setInterval(function() {
+            let energyPercentage = parseFloat(getComputedStyle(energyBar, '::before').getPropertyValue('width')) - 1;
+            if(energyPercentage <= 0) {
+                clearInterval(interval);
+                energyBar.classList.remove('filling');
+                timerElement.innerHTML = 'Energy channeling has reset. Click the button to restart.';
+            } else {
+                timerElement.innerHTML = `Energy channeling will reset in ${Math.round(energyPercentage)} seconds...`;
+            }
+            energyBar.style.setProperty('--percent', energyPercentage);
+        }, 1000);
+    });
+</script>
+
 </body>
 </html>
