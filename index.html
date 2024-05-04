@@ -18,7 +18,8 @@
             margin: 40px auto;
             padding: 20px;
             background-color: #fff;
-            border: 1px solid #ddd            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         
         h1, h2, h3 {
@@ -39,7 +40,7 @@
             border: none;
             padding: 10px 20px;
             font-size: 16px;
-            cursor pointer;
+            cursor: pointer;
             border-radius: 5px;
         }
         
@@ -58,7 +59,7 @@
             height: 200px;
             border: 1px solid #ddd;
             border-radius: 10px;
-            padding:20px;
+            padding: 20px;
             margin-top: 20px;
         }
         
@@ -140,7 +141,7 @@
             <h2 class="h2">How I Work</h2>
             <p class="p">Simply sit comfortably, relax, and follow my guided instructions. I will transmit the universal life force energy to you, promoting relaxation, reducing stress, and enhancing your overall well-being.</p>
             <h2 class="h2">The Five Principles of Reiki</h2>
-            <p class="pI abide by the five principles of Reiki, also known as the Reiki Ideals, to guide us in living a balanced and harmonious life. I strive to:</p>
+            <p class="p">I abide by the five principles of Reiki, also known as the Reiki Ideals, to guide us in living a balanced and harmonious life. I strive to:</p>
             <ul class="ul">
                 <li class="li">Just for today, do not anger</li>
                 <li class="li">Just for today, do not worry</li>
@@ -223,6 +224,51 @@
             // Change the sphere's color based on touch movement
             sphere.material.color.setHSL(event.touches[0].clientX / window.innerWidth, 1, 0.5);
         });
+        
+        // Add interactive Reiki symbols
+        var canvas = document.getElementById('canvas');
+        paper.setup(canvas);
+        
+        var symbols = [
+          {
+            name: 'Cho Ku Rei',
+            path: 'M 100 100 L 150 100 L 150 150 L 100 150 Z',
+            fill: '#FF69B4',
+            hoverFill: '#FFC0CB'
+          },
+          {
+            name: 'Sei He Ki',
+            path: 'M 200 100 L 250 100 L 250 150 L 200 150 Z',
+            fill: '#33CC33',
+            hoverFill: '#66CC00'
+          },
+          {
+            name: 'Hon Sha Ze Sho Nen',
+            path: 'M 300 100 L 350 100 L 350 150 L 300 150 Z',
+            fill: '#6666CC',
+            hoverFill: '#9999CC'
+          }
+        ];
+        
+        var paths = [];
+        for (var i = 0; i < symbols.length; i++) {
+          var symbol = symbols[i];
+          var path = new paper.Path(symbol.path);
+          path.fillColor = symbol.fill;
+          path.on('mouseover', function() {
+            this.fillColor = symbol.hoverFill;
+          });
+          path.on('mouseout', function() {
+            this.fillColor = symbol.fill;
+          });
+          paths.push(path);
+        }
+        
+        for (var i = 0; i < paths.length; i++) {
+          paths[i].on('click', function() {
+            alert('You clicked on ' + this.name);
+          }.bind(symbols[i]));
+        }
     </script>
 </body>
 </html>
