@@ -109,7 +109,14 @@
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
   }
 }
-	
+	 #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1; /* Make sure it's behind all other elements */
+        }
 
     </style>
 </head>
