@@ -166,8 +166,7 @@
             </ul>
         </section>
     </div>
-  <script>
-   <script>
+    <script>
         let energyBar = document.getElementById('energy-bar');
         let timerElement = document.getElementById('timer');
         let timeLeft = 10;
@@ -186,10 +185,10 @@
             timerElement.innerHTML = `Energy channeling will reset in ${(energyPercentage / energyDecrease).toFixed(0)} seconds...`;
         }
         energyBar.style.width = `${energyPercentage}%`;
+        energyBar.innerHTML = `${energyPercentage.toFixed(2)}%`;
+    }, 1000); // 1 second interval
+});
 
-</script>
-
-	
-
+    </script>
 </body>
 </html>
