@@ -30,7 +30,7 @@
         }
         
         .channeling-container {
-            background-image: url('https://picsum.photos/200/300');
+            background-image: url('https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2F1.bp.blogspot.com%2F-zeweT9-pNpU%2FUdA9ZJl-OLI%2FAAAAAAAAADM%2Fd3Ai8O9Tt_w%2Fs1572%2FGalaxies_wallpapers_327.jpg&f=1&nofb=1&ipt=1101a641dd0de88357e09f4f0922b9d3019a4476f594059b712ec68627f70682&ipo=images');
             background-size: cover;
             background-position: center;
             padding: 20px;
@@ -58,23 +58,23 @@
             color: #666;
         }
         
-        .benefits {
+        .visualization {
+            width: 100%;
+            height: 200px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
             padding: 20px;
+            margin-top: 20px;
         }
         
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        
-        li {
+        .energy-bar {
+            width: 0%;
+            height: 20px;
+            background-color: #4CAF50;
+            border-radius: 10px;
             padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        li:last-child {
-            border-bottom: none;
+            text-align: center;
+            color: #fff;
         }
     </style>
 </head>
@@ -90,6 +90,9 @@
                 <p>Click the button below to harness the universal life force energy (Reiki) and let its power flow through you for 10 minutes.</p>
                 <button class="channel-button" id="channel-energy">Channel Universal Energy</button>
                 <p id="timer">Energy channeling will begin shortly...</p>
+                <div class="visualization">
+                    <div class="energy-bar" id="energy-bar"></div>
+                </div>
             </section>
             <section class="benefits">
                 <h2>Benefits of Universal Energy Channeling</h2>
@@ -104,16 +107,24 @@
     </div>
     <script>
         let timerInterval;
+        let energyBar = document.getElementById('energy-bar');
+        let timerElement = document.getElementById('timer');
         
         document.getElementById('channel-energy').addEventListener('click', () => {
-            document.getElementById('timer').innerHTML = 'Energy channeling in progress...';
+            timerElement.innerHTML = 'Energy channeling in progress...';
+            energyBar.style.width = '0%';
             timerInterval = setInterval(() => {
                 let timeLeft = 10;
-                document.getElementById('timer').innerHTML = `Energy channeling will reset in ${timeLeft} minutes...`;
+                timerElement.innerHTML = `Energy channeling will reset in ${timeLeft} minutes...`;
+                let energyPercentage = (10 - timeLeft) * 10;
+                energyBar.style.width = `${energyPercentage}%`;
+                energyBar.innerHTML = `${energyPercentage}%`;
                 timeLeft--;
                 if (timeLeft <= 0) {
                     clearInterval(timerInterval);
-                    document.getElementById('timer').innerHTML = 'Energy channeling has reset. Click the button to restart.';
+                    timerElement.innerHTML = 'Energy channeling has reset. Click the button to restart.';
+                    energyBar.style.width = '0%';
+                    energyBar.innerHTML = '0%';
                 }
             }, 60000); // 1 minute interval
         });
