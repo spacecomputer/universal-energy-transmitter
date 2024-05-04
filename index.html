@@ -159,8 +159,8 @@
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         
-        canvas.width = 800px ;
-        canvas.height = 200px;
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
         
         class Particle {
             constructor(x, y) {
