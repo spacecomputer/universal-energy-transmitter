@@ -6,39 +6,49 @@
     <title>Universal Energy Channeling</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            font-family: 'Open Sans', sans-serif;
+            background-image: linear-gradient(to bottom, #f7f7f7, #fff);
+            background-repeat: no-repeat;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
         }
         
-        header {
-            background-color: #333;
-            color: #fff;
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
             padding: 20px;
-            text-align: center;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         
-        h1, h2 {
+        h1, h2, h3 {
+            font-family: 'Lato', sans-serif;
             color: #333;
             margin-bottom: 10px;
         }
         
-        .energy-channeling {
-            background-color: #fff;
+        .channeling-container {
+            background-image: url('https://picsum.photos/200/300');
+            background-size: cover;
+            background-position: center;
             padding: 20px;
-            border: 1px solid #ddd;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         
-        button {
+        .channel-button {
             background-color: #333;
             color: #fff;
             border: none;
-           : 10px 20px;
+            padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
+            border-radius: 5px;
         }
         
-        button:hover {
+        .channel-button:hover {
             background-color: #444;
         }
         
@@ -49,11 +59,7 @@
         }
         
         .benefits {
-            background-color: #fff;
             padding: 20px;
-            border: 1px solid #ddd;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
         }
         
         ul {
@@ -73,27 +79,29 @@
     </style>
 </head>
 <body>
-    <header>
-        <h1>Connect with the Universe</h1>
-        <p>Tap into the infinite energy of the cosmos and experience balance, harmony, and inner peace.</p>
-    </header>
-    <main>
-        <section class="energy-channeling">
-            <h2>Channel the Energy of the Universe</h2>
-            <p>Click the button below to harness the universal life force energy (Reiki) and let its power flow through you for 10 minutes.</p>
-            <button id="channel-energy">Channel Universal Energy</button>
-            <p id="timer">Energy channeling will begin shortly...</p>
-        </section>
-        <section class="benefits">
-            <h2>Benefits of Universal Energy Channeling</h2>
-            <ul>
-                <li>Reduces stress and anxiety</li>
-                <li>Boosts mood and energy levels</li>
-                <li>Enhances spiritual connection and intuition</li>
-                <li>Supports physical, emotional, and mental well-being</li>
-            </ul>
-        </section>
-    </main>
+    <div class="container">
+        <header>
+            <h1>Universal Energy Channeling</h1>
+            <p>Connect with the divine and tap into the infinite energy of the universe.</p>
+        </header>
+        <main>
+            <section class="channeling-container">
+                <h2>Channel the Energy of the Universe</h2>
+                <p>Click the button below to harness the universal life force energy (Reiki) and let its power flow through you for 10 minutes.</p>
+                <button class="channel-button" id="channel-energy">Channel Universal Energy</button>
+                <p id="timer">Energy channeling will begin shortly...</p>
+            </section>
+            <section class="benefits">
+                <h2>Benefits of Universal Energy Channeling</h2>
+                <ul>
+                    <li>Reduces stress and anxiety</li>
+                    <li>Boosts mood and energy levels</li>
+                    <li>Enhances spiritual connection and intuition</li>
+                    <li>Supports physical, emotional, and mental well-being</li>
+                </ul>
+            </section>
+        </main>
+    </div>
     <script>
         let timerInterval;
         
