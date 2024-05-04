@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Universal Energy Channeling</title>
+    <title>Universal Energy Channeling</title>
     <style>
         body {
             font-family: 'Open Sans', sans-serif;
@@ -64,26 +64,35 @@
         }
         
         .energy-bar {
-  width: 0%;
-  height: 20px;
-  background-image: linear-gradient(to right, #fff, #ccc, #fff);
-  background-size: 30px 30px;
-  background-position: 0% 50%;
-  animation: energy-pulse 2s infinite;
-  border-radius: 10px;
-  padding: 10px;
-  text-align: center;
-  color: #fff;
-}
+            width: 0%;
+            height: 20px;
+            background-color: #ccc;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            color: #fff;
+            overflow: hidden;
+            position: relative;
+        }
 
-@keyframes energy-pulse {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 100% 50%;
-  }
-}
+        .energy-bar::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background-color: #4CAF50;
+            transition: width 0.5s;
+            border-radius: 10px 0 0 10px;
+        }
+
+        .energy-bar.filling {
+            width: 100%;
+        }
+
+        .energy-bar.filling::before {
+            width: 100%;
         }
     </style>
 </head>
