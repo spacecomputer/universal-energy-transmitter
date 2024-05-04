@@ -64,36 +64,51 @@
         }
         
         .energy-bar {
-            width: 0%;
-            height: 20px;
-            background-color: #ccc;
-            border-radius: 10px;
-            padding: 10px;
-            text-align: center;
-            color: #fff;
-            overflow: hidden;
-            position: relative;
-        }
+  width: 0%;
+  height: 40px;
+  background-color: #333;
+  border-radius: 20px;
+  padding: 10px;
+  text-align: center;
+  color: #fff;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
 
-        .energy-bar::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 100%;
-            background-color: #4CAF50;
-            transition: width 0.5s;
-            border-radius: 10px 0 0 10px;
-        }
+.energy-bar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background-image: linear-gradient(to right, #FF69B4, #33CC33);
+  background-size: 100% 100%;
+  transition: width 0.5s;
+  border-radius: 20px 0 0 20px;
+  animation: glow 2s infinite;
+}
 
-        .energy-bar.filling {
-            width: 100%;
-        }
+.energy-bar.filling {
+  width: 100%;
+}
 
-        .energy-bar.filling::before {
-            width: 100%;
-        }
+.energy-bar.filling::before {
+  width: 100%;
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 1);
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+}
     </style>
 </head>
 <body>
