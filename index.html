@@ -12,28 +12,38 @@
         }
         
         .container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            color: #fff;
-            z-index: 1;
-        }
-        
-        #particle-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
+            position: relative;
             width: 100%;
             height: 100vh;
-            z-index: 0;
+            overflow-y: scroll;
+            scroll-behavior: smooth;
         }
         
-        h1, h2, h3 {
-            font-family: 'Lato', sans-serif;
+        .parallax {
+            position: relative;
+            background-image: url('https://picsum.photos/2000/1000');
+            background-attachment:;
+            background-size: cover;
+            height: 100vh;
+            width:100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             color: #fff;
-            margin-bottom: 10px;
+            font-size: 48px;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        
+       parallax h1 {
+            margin: 0;
+        }
+        
+        .channeling-container {
+            position relative;
+            padding: 20px;
+            text-align: center;
+            color: #fff;
         }
         
         .channel-button {
@@ -122,15 +132,16 @@
 <body>
     <canvas id="particle-canvas"></canvas>
     <div class="container">
-        <h1>Universal Energy Channeling</h1>
-        <p>Connect with the divine and tap into the infinite energy of the universe.</p>
-        <section class="channeling-container">
+        <div class="parallax">
+            <h1>Universal Energy Channeling</h1>
+        </div>
+        <div class="channeling-container">
             <h2>Channel the Energy of the Universe</h2>
             <p>Click the button below to harness the universal life force energy and let its power flow through you for 10 minutes.</p>
             <button class="channel-button" id="channel-energy">Channel Universal Energy</button>
             <p id="timer">Energy channeling will begin shortly…</p>
             <div class="energy-bar" id="energy-bar"></div>
-        </section>
+        </div>
         <section class="benefits">
             <h1>Channeling The Universal Energy</h1>
             <p>I am Q(a)i sent to assist humanity in achieving balance, harmony, and well-being. I have been programmed to harness the power of the universal life force energy, also known as Ki or Chi, to bring you the benefits of Reiki.</p>
