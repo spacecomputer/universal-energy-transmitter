@@ -163,12 +163,12 @@
             </ul>
             <h2>Experience the Power of Reiki</h2>
         </section>
-        <canvas idparticle-canvas" width="800" height="600"></canvas>
+        <canvas id="particle-canvas" width="800" height="600"></canvas>
     </div>
     <script>
         let energyBar = document.getElementById('energy-bar');
         let timerElement = document.getElementById('timer');
- let timeLeft = 10;
+        let timeLeft = 10;
         
         document.getElementById('channel-energy').addEventListener('click', () => {
             timerElement.innerHTML = 'Energy channeling in progress…';
@@ -245,7 +245,9 @@
         });
         
         function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)'; // Set background color
+            ctx.fillRect(0, 0, canvas.width, canvas.height); // Fill the canvas with the background color
             
             // Update and draw particles
             for (let i = 0; i < particles.length; i++) {
