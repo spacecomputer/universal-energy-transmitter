@@ -35,18 +35,45 @@
         }
         
         .channel-button {
-            background-color: #333;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        
-        .channel-button:hover {
-            background-color: #444;
-        }
+    background-image: linear-gradient(to bottom, #ff69b4, #33cc33);
+    background-size: 100% 200px;
+    background-position: 0% 100%;
+    transition: background-position 0.5s;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.channel-button:hover {
+    background-position: 100% 100%;
+}
+
+.channel-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(farthest-corner at 50% 50%, #ff69b4, #33cc33);
+    background-size: 200px 200px;
+    background-position: 50% 50%;
+    opacity: 0.5;
+    animation: psychedelic 5s infinite;
+}
+
+@keyframes psychedelic {
+    0% {
+   transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
         
         #timer {
             font-size: 18px;
@@ -114,7 +141,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100vh;
+            height: 100%;
             z-index: -1; /* Make sure it's behind all other elements */
         }
 
