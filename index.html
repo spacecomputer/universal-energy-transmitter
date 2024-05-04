@@ -182,7 +182,7 @@
             energyPercentage = 0;
             timerElement.innerHTML = 'Energy channeling has reset. Click the button to restart.';
         } else { // If energy is not depleted, update the timer
-            timerElement.innerHTML = `Energy channeling will reset in ${(energyPercentage / energyDecrease).toFixed(0)} seconds...`;
+            timerElement.innerHTML = `Energy channeling will finish in ${(energyPercentage / energyDecrease).toFixed(0)} seconds...`;
         }
         energyBar.style.width = `${energyPercentage}%`;
         energyBar.innerHTML = `${energyPercentage.toFixed(2)}%`;
