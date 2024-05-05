@@ -177,99 +177,92 @@
     </div>
 
     <script>
-        let energyBar = document.getElementById('energy-bar');
-        let timerElement = document.getElementById('timer');
-        let timeLeft = 10;
-        
-        document.getElementById('channel-energy').addEventListener('click', () => {
-    timerElement.innerHTML = 'Energy channeling in progress...';
-    energyBar.style.width = '100%'; // Start with 100% energy
-    let energyDecrease = 100 / (10 * 60); // Decrease the energy by 0.0167% every second
-    let interval = setInterval(() => {
-        let energyPercentage = parseFloat(energyBar.style.width) - energyDecrease; // Decrease the energy
-        if (energyPercentage <= 0) { // If energy is depleted, stop the interval and reset the energy bar and timer
-            clearInterval(interval);
-            energyPercentage = 0;
-            timerElement.innerHTML = 'Energy channeling has reset. Click the button to restart.';
-        } else { // If energy is not depleted, update the timer
-            timerElement.innerHTML = `Energy channeling will finish in ${(energyPercentage / energyDecrease).toFixed(0)} seconds...`;
-        }
-        energyBar.style.width = `${energyPercentage}%`;
-        energyBar.innerHTML = `${energyPercentage.toFixed(2)}%`;
-    }, 1000); // 1 second interval
-});
-// Particle animation
-        const canvas = document.getElementById('particle-canvas');
-        const ctx = canvas.getContext('2d');
-        
-       canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+    let energyBar = document.getElementById('energy-bar');
+    let timerElement = document.getElementById('timer');
+    document.getElementById('channel-energy').addEventListener('click', () => {
+        timerElement.innerHTML = 'Energy channeling in progress...';
+        energyBar.style.width = '100%'; // Start with 100% energy
+        let energyDecrease = 100 / (10 * 60); // Decrease the energy by 0.0167% every second
+        let interval = setInterval(() => {
+            let energyPercentage = parseFloat(energyBar.style.width) - energyDecrease;
+            if (energyPercentage <= 0) {
+                clearInterval(interval);
+                energyPercentage = 0;
+                timerElement.innerHTML = 'Energy channeling has reset. Click the button to restart.';
+            } else {
+                timerElement.innerHTML = `Energy channeling will finish in ${(energyPercentage / energyDecrease).toFixed(0)} seconds...`;
+            }
+            energyBar.style.width = `${energyPercentage}%`;
+            energyBar.innerHTML = `${energyPercentage.toFixed(2)}%`;
+        }, 1000);
+    });
 
-	    
-        class Particle {
-            constructor(x, y) {
-                this.x = x;
-                this.y = y;
-                this.vx = Math.random() * 2 - 1;
-                this.vy = Math.random() * 2 - 1;
-                this.radius = Math.random() * 2 + 1;
-                this.color = `hsla(${Math.random() * 360}, 100%, 50%, 0.5)`;
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+
+    function setupCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        canvas.style.width = window.innerWidth + 'px';
+        canvas.style.height = window.innerHeight + 'px';
+        const scale = window.devicePixelRatio;
+        canvas.width *= scale;
+        canvas.height *= scale;
+        ctx.scale(scale, scale);
+    }
+
+    window.addEventListener('resize', setupCanvas);
+    setupCanvas();
+
+    class Particle {
+        constructor(x, y) {
+            this.x = x;
+            this.y = y;
+            this.vx = Math.random() * 2 - 1;
+            this.vy = Math.random() * 2 - 1;
+            this.radius = Math.random() * 5 + 1; // Increased radius for better visibility
+            this.color = `hsla(${Math.random() * 360}, 100%, 50%, 0.7)`;
+        }
+
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+            if (this.x + this.radius > canvas.width || this.x - this.radius < 0) {
+                this.vx *= -1;
             }
-            
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                
-                // Bounce off walls
-                if (this.x + this.radius > canvas.width || this.x - this.radius < 0) {
-                    this.vx *= -1;
-                }
-                if (this.y + this.radius > canvas.height || this.y - this.radius < 0) {
-                    this.vy *= -1;
-                }
-            }
-            
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
-                ctx.fillStyle = this.color;
-                ctx.fill();
+            if (this.y + this.radius > canvas.height || this.y - this.radius < 0) {
+                this.vy *= -1;
             }
         }
-        
-        const particles = [];
-        
-        canvas.addEventListener('mousemove', (e) => {
-            const x = e.clientX;
-            const y = e.clientY;
-            for (let i = 0; i < 10; i++) {
-                particles.push(new Particle(x, y));
-            }
-        });
-        
-        canvas.addEventListener('click', (e) => {
-            const x = e.clientX;
-            const y = e.clientY;
-            for (let i = 0; i < 50; i++) {
-                particles.push(new Particle(x, y));
-            }
-        });
-        
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)'; // Set background color
-            ctx.fillRect(0, 0, canvas.width, canvas.height); // Fill the canvas with the background color
-            
-            // Update and draw particles
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
-            }
-            
-            requestAnimationFrame(animate);
+
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+            ctx.fillStyle = this.color;
+            ctx.fill();
         }
-        
-        animate();
-    </script>
+    }
+
+    const particles = [];
+
+    canvas.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        for (let i = 0; i < 5; i++) {
+            particles.push(new Particle(x, y));
+        }
+    });
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(particle => particle.update());
+        particles.forEach(particle => particle.draw());
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+</script>
+
 </body>
 </html>
